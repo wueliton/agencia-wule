@@ -1,0 +1,10 @@
+<script defer>
+    window.addEventListener('load', () => {
+        const tags = '@@files';
+        const scripts = tags.split(',').forEach((script) => {
+            const tag = document.createElement('script');
+            tag.src = script;
+            document.body.appendChild(tag);
+        });
+    });
+</script>

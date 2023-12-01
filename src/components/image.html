@@ -1,0 +1,12 @@
+<picture>
+    <source srcset="images/webp/@@webpImage.webp" type="image/webp" />
+    <source srcset="images/@@src" type="@@type" />
+    <img
+        src="images/@@src"
+        alt="@@title"
+        title="@@title"
+        class="@@class"
+        @@if (context.width) { width="@@width" }
+        @@if (context.height) { height="@@height" }
+    />
+</picture>
