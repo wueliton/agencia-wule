@@ -7,7 +7,7 @@ import concat from 'gulp-concat';
 import cleancss from 'gulp-clean-css';
 import imagemin, {mozjpeg} from 'gulp-imagemin';
 import webp from 'gulp-webp';
-import dartSass from 'sass';
+import * as dartSass from 'sass';
 import gulpSass from 'gulp-sass';
 import htmlmin from 'gulp-htmlmin';
 const sass = gulpSass(dartSass);
@@ -22,6 +22,16 @@ gulp.task('html', function () {
         .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
         .pipe(gulp.dest('dist'));
 });
+
+gulp.task('robots', function() {
+    return gulp.src(['src/robots.txt'])
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file',
+            context: geral
+        }))
+        .pipe(gulp.dest('dist'));
+})
 
 gulp.task('sass', function () {
     return gulp.src(['src/scss/*.scss'])
@@ -68,4 +78,4 @@ gulp.task('watch', function () {
     watch(['src/images/*'], gulp.series('images', 'webp-images'));
 });
 
-gulp.task('default', gulp.series('sass', 'minify', 'images', 'webp-images', 'js', 'html'));
+gulp.task('default', gulp.series('sass', 'minify', 'images', 'webp-images', 'js', 'html', 'robots'));
