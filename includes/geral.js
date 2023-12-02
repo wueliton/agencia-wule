@@ -7,5 +7,6 @@ export const geral = {
     slogan: 'Especialistas em SEO e Otimização de Sites',
     siteUrl: url,
     logo: `${url}images/logo.png`,
-    phone: '(11) 94004-3902'
+    phone: '(11) 94004-3902',
+    images: `${url}images`
 }
