@@ -1,6 +1,6 @@
 import crossEnv from 'cross-env';
 
-const url = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:5500/dist/' : 'https://wueliton.github.io/agencia-wule/';
+const url = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:5500/dist/' : 'https://wule.com.br/';
 
 export const geral = {
     empresa: 'Wule Agência Digital',
