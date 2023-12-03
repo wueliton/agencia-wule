@@ -158,6 +158,18 @@ li.nav-item a {
     }
 }
 
+footer {
+    color: rgba(255,255,255,0.6);
+
+    p {
+        max-width: 460px;
+    }
+
+    strong {
+        color: white;
+    }
+}
+
 .top-4 {
     top: 10%;
 }
@@ -222,4 +234,17 @@ li.nav-item a {
     color: rgba(255,255,255,0.5);
     line-height: 120%;
     border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.keyword p {
+    max-width: 100%;
+    margin-bottom: 40px;
+}
+
+.author p {
+    margin-bottom: 0;
+}
+
+.author p:last-child {
+    font-size: 10pt;
 }
