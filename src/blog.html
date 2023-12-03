@@ -1,0 +1,20 @@
+@@include('./includes/head.html', {
+    title: 'Agência especializada em SEO',
+    description: 'Alcance o topo do Google com a Wule, especialista em SEO, Pagespeed e Google Tag Manager. Otimize seu site, analise o desempenho e consulte grátis!',
+    keywords: 'SEO, Otimização de Sites, Consultoria em SEO, Pagespeed Optimization, Google Tag Manager, Estratégias de Busca, Posicionamento no Google, Análise de Desempenho, Otimização On-Page, Link Building, Auditoria Técnica, Agência Digital Especializada, Serviços de SEO, Consulta Gratuita, Marketing Digital, Presença Online, Resultados Tangíveis, Topo do Google',
+    cannonical: ''
+})
+<body>
+    @@include('./includes/header.html')
+    <main class="py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1>Blog</h1>
+                    @@loop('./components/blog-card.html', "./includes/keywords.json")
+                </div>
+            </div>
+        </div>
+    </main>
+    @@include('./includes/footer.html')
+</body>

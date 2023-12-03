@@ -11,26 +11,68 @@ import * as dartSass from "sass";
 import gulpSass from "gulp-sass";
 import htmlmin from "gulp-htmlmin";
 import rename from "gulp-rename";
-import { keywords } from "./src/includes/keywords.js";
+import replace from "gulp-replace";
+// import { keywords } from "./src/includes/keywords.js";
+import keywords from "./src/includes/keywords.json?type=json" assert {type: "json"};
 const sass = gulpSass(dartSass);
+
+const getFileLink = (title) => {
+  const stopWords = [
+    "e",
+    "ou",
+    "mas",
+    "para",
+    "em",
+    "com",
+    "de",
+    "do",
+    "da",
+    "no",
+    "na",
+    "um",
+    "uma",
+    "os",
+    "as",
+    "um",
+    "uma",
+    "se",
+    "que",
+    "por",
+  ];
+  const regex = new RegExp(`\\b(${stopWords.join("|")})\\b`, "gi");
+
+  return `${title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(regex, "")
+    .replace(/\s+/g, "-")}`
+}
 
 const fileincludeConfig = {
   prefix: "@@",
   basepath: "@file",
-  context: geral,
+  context: {
+    ...geral,
+    keywords
+  },
+  ident: true
 };
 
 gulp.task("html", function () {
   return gulp
     .src(["src/*.html"])
     .pipe(fileinclude(fileincludeConfig))
+    .pipe(replace(/@@link\(.*\)/g, function(match) {
+      return getFileLink(match.replace('@@link(', '').slice(0, -1));
+    }))
     .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
     .pipe(gulp.dest("dist"));
 });
 
 gulp.task("robots", function () {
   return gulp
-    .src(["src/robots.txt"])
+    .src(["src/robots.txt", "src/sitemap.xml"])
     .pipe(fileinclude(fileincludeConfig))
     .pipe(gulp.dest("dist"));
 });
@@ -79,29 +121,7 @@ gulp.task("webp-images", function () {
 });
 
 gulp.task("keywords", function (done) {
-  const stopWords = [
-    "e",
-    "ou",
-    "mas",
-    "para",
-    "em",
-    "com",
-    "de",
-    "do",
-    "da",
-    "no",
-    "na",
-    "um",
-    "uma",
-    "os",
-    "as",
-    "um",
-    "uma",
-    "se",
-    "que",
-    "por",
-  ];
-  const regex = new RegExp(`\\b(${stopWords.join("|")})\\b`, "gi");
+  
   const getReadTime = (text) => {
     const wordsCount = text.split(/\s+/).length;
     const time = wordsCount / 200;
@@ -124,12 +144,7 @@ gulp.task("keywords", function (done) {
         .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
         .pipe(
           rename(
-            `${keyword.title
-              .toLowerCase()
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .replace(regex, "")
-              .replace(/\s+/g, "-")}.html`
+            `${getFileLink(keyword.title)}.html`
           )
         )
         .pipe(gulp.dest("dist"))
