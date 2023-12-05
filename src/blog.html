@@ -8,10 +8,12 @@
     @@include('./includes/header.html')
     <main class="py-5">
         <div class="container py-5">
-            <div class="row">
-                <div class="col-lg-8">
+            <div class="row justify-content-center">
+                <div class="col-auto">
                     <h1>Blog</h1>
-                    @@loop('./components/blog-card.html', "./includes/keywords.json")
+                    <div class="posts">
+                        @@loop('./components/blog-card.html', "./includes/keywords.json")
+                    </div>
                 </div>
             </div>
         </div>

@@ -285,3 +285,43 @@ footer {
 #success {
     display: none;
 }
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &>*:not(:last-child) {
+        border-bottom: 1px solid #DDD;
+    }
+
+    .author {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+        align-items: center;
+
+        > div {
+            display: flex;
+            gap: 4px;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+
+        p.title {
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16pt;
+            display: block;
+            margin-bottom: 20px;
+        }
+    }
+}
