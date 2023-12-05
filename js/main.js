@@ -39,5 +39,45 @@ const setupAnimations = () => {
     });
 }
 
+const setupForm = () => {
+    const form = document.getElementById('agendar-consulta');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        let serializedForm = {};
+        formData.forEach((valor, chave) => {
+            serializedForm = {
+                ...serializedForm,
+                [chave]: valor
+            }
+        });
+        dataLayer.push({'event': 'contact-form-send', 'data': JSON.stringify(serializedForm)});
+        const successMessage = document.getElementById('success');
+        const mailSuccess = document.getElementById('email-sender');
+        e.target.style.display = 'none';
+        mailSuccess.innerHTML = serializedForm.email;
+        successMessage.style.display = 'block';
+    })
+}
+
+const setupScrollTo = () => {
+    const elTargets = document.querySelectorAll('[data-scrollTo]');
+
+    elTargets.forEach((el) => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const target = el.dataset.scrollto;
+            const targetElement = document.querySelector(target);
+            targetElement.scrollIntoView();
+            if(targetElement.querySelector('input')) {
+                targetElement.querySelector('input').focus();
+            }
+        });
+    });
+}
+
 setupAccordion();
 setupAnimations();
+setupForm();
+setupScrollTo();
