@@ -165,7 +165,7 @@ gulp.task("js", function () {
 gulp.task("watch", function () {
   watch(
     ["src/**/*.js", "src/**/*.scss", "src/**/*.html"],
-    gulp.series(gulp.parallel("sass", "js"), gulp.parallel("html", "keywords"))
+    gulp.series(gulp.parallel("sass", "js"), gulp.parallel("html"))
   );
   watch(["src/images/*"], gulp.series("images", "webp-images"));
 });

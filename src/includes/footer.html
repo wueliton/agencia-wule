@@ -4,7 +4,28 @@
       <div class="col-lg-6 py-4">
         <p class="text-white h1 mb-4">Seu negócio protagonista do Google</p>
         <p>Se você deseja que seu negócio tenha relevância nos buscadores e ter seu site na primeira página de busca do Google, <strong>essa é a sua oportunidade</strong>.</p>
-        <button class="button mt-4">Agendar Consulta</button>
+      </div>
+      <div class="col-lg-6 d-flex align-items-center" id="form-consulta">
+        <form id="agendar-consulta">
+          <p>Agende uma consulta de análise para o seu negócio:</p>
+          <div class="form-group mb-3">
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="name" class="form-control" required autocomplete="off">
+          </div>
+          <div class="form-group mb-3">
+            <label for="email">Seu melhor E-mail</label>
+            <input type="email" name="email" id="email" class="form-control" required autocomplete="off">
+          </div>
+          <div class="form-group mb-3">
+            <label for="company">Nome da Empresa</label>
+            <input type="text" name="company" id="company" class="form-control" required autocomplete="off">
+          </div>
+          <button class="button mt-4">Solicitar Consulta</button>
+        </form>
+        <div id="success">
+          <p class="h3 text-white">Sucesso!</p>
+          <p>Seus dados foram enviados com sucesso, iremos entrar em contato em seu email <strong id="email-sender"></strong>.</p>
+        </div>
       </div>
     </div>
     <div class="row footer-bar pt-4">

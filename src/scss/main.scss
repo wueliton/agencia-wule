@@ -248,3 +248,40 @@ footer {
 .author p:last-child {
     font-size: 10pt;
 }
+
+.form-group {
+    position: relative;
+}
+
+.form-group label {
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    transform: scale(0.7);
+    transform-origin: left;
+}
+
+.form-control {
+    background-color: transparent;
+    border: 2px solid #555;
+    color: #DDD;
+    padding: 20px 8px 8px 8px;
+}
+
+.form-control::placeholder {
+    color: rgba(255,255,255,0.2);
+}
+
+.form-control:focus {
+    outline: none;
+    background-color: transparent;
+    color: white;
+}
+
+.form-group:has(.form-control:focus) label {
+    color: #86b7fe;
+}
+
+#success {
+    display: none;
+}
