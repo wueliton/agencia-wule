@@ -67,7 +67,7 @@ gulp.task("html", function () {
 
 gulp.task("robots", function () {
   return gulp
-    .src(["src/robots.txt", "src/sitemap.xml"])
+    .src(["src/robots.txt", "src/sitemap.xml", "src/CNAME"])
     .pipe(fileinclude(fileincludeConfig))
     .pipe(gulp.dest("dist"));
 });
