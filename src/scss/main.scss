@@ -290,7 +290,9 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
 
+.posts, .keyword-cards {
     &>*:not(:last-child) {
         border-bottom: 1px solid #DDD;
     }
@@ -323,6 +325,12 @@ footer {
             display: block;
             margin-bottom: 20px;
         }
+    }
+}
+
+.keyword-cards {
+    &>* {
+        border-bottom: 0px !important;
     }
 }
 

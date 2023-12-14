@@ -9,6 +9,8 @@
   </div>
   <a href="@@link(@@title)">
     <p class="title">@@title</p>
-    <p>@@description</p>
+    @@if(description) {
+      <p>@@description</p>
+    }
   </a>
 </div>

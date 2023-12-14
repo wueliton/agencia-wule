@@ -123,6 +123,7 @@ gulp.task("keywords", function (done) {
   };
   const tasks = keywords.map((keyword) => {
     return function keywordTask(cb) {
+      const shuffledKeywords = keywords.sort((a,b) => 0.5 - Math.random());
       return gulp
         .src("src/_modelo/keyword.html")
         .pipe(
@@ -132,7 +133,13 @@ gulp.task("keywords", function (done) {
               ...geral,
               ...keyword,
               minutes: getReadTime(keyword.keywordcontent),
+              keywords: shuffledKeywords.slice(0, 6)
             },
+          })
+        )
+        .pipe(
+          replace(/@@link\(.*\)/g, function (match) {
+            return getFileLink(match.replace("@@link(", "").slice(0, -1));
           })
         )
         .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
