@@ -12,8 +12,7 @@ import gulpSass from "gulp-sass";
 import htmlmin from "gulp-htmlmin";
 import rename from "gulp-rename";
 import replace from "gulp-replace";
-// import { keywords } from "./src/includes/keywords.js";
-import keywords from "./src/includes/keywords.json?type=json" assert {type: "json"};
+import keywords from "./src/includes/keywords.json?type=json" assert { type: "json" };
 const sass = gulpSass(dartSass);
 
 const getFileLink = (title) => {
@@ -46,26 +45,22 @@ const getFileLink = (title) => {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(regex, "")
-    .replace(/\s+/g, "-")}`
-}
+    .replace(/\s+/g, "-")}`;
+};
 
 const fileincludeConfig = {
   prefix: "@@",
   basepath: "@file",
   context: {
-    ...geral,
-    keywords
+    ...geral
   },
-  ident: true
+  ident: true,
 };
 
 gulp.task("html", function () {
   return gulp
-    .src(["src/*.html"])
+    .src(["src/*.html","!src/blog.html"])
     .pipe(fileinclude(fileincludeConfig))
-    .pipe(replace(/@@link\(.*\)/g, function(match) {
-      return getFileLink(match.replace('@@link(', '').slice(0, -1));
-    }))
     .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
     .pipe(gulp.dest("dist"));
 });
@@ -121,12 +116,11 @@ gulp.task("webp-images", function () {
 });
 
 gulp.task("keywords", function (done) {
-  
   const getReadTime = (text) => {
     const wordsCount = text.split(/\s+/).length;
     const time = wordsCount / 200;
     return Math.round(time);
-  }
+  };
   const tasks = keywords.map((keyword) => {
     return function keywordTask(cb) {
       return gulp
@@ -137,16 +131,53 @@ gulp.task("keywords", function (done) {
             context: {
               ...geral,
               ...keyword,
-              minutes: getReadTime(keyword.keywordcontent)
+              minutes: getReadTime(keyword.keywordcontent),
             },
           })
         )
         .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
+        .pipe(rename(`${getFileLink(keyword.title)}.html`))
+        .pipe(gulp.dest("dist"))
+        .on("end", cb);
+    };
+  });
+
+  return gulp.series(...tasks, function seriesCallback(seriesDone) {
+    seriesDone();
+    done();
+  })();
+});
+
+gulp.task("blog-pagination", function (done) {
+  const pagesLength = Array.from(Array(Math.round(keywords.length / 10)));
+  const tasks = pagesLength.map((_, index) => {
+    const partialKeywords = keywords.slice(index * 10, index * 10 + 10);
+    
+    return function blogPagination(cb) {
+      return gulp
+        .src("src/blog.html")
         .pipe(
-          rename(
-            `${getFileLink(keyword.title)}.html`
-          )
+          fileinclude({
+            ...fileincludeConfig,
+            context: {
+              ...fileincludeConfig.context,
+              keywords: partialKeywords,
+              page: index + 1,
+              pagesLength: pagesLength.length + 1,
+              minPage: index - 2,
+              maxPage: index + 4,
+              prevPage: index > 0 ? index === 1 ? 'blog' : `blog-${index}` : null,
+              nextPage: (index + 1) < (pagesLength.length) ? `blog-${index + 2}` : null
+            },
+          })
         )
+        .pipe(
+          replace(/@@link\(.*\)/g, function (match) {
+            return getFileLink(match.replace("@@link(", "").slice(0, -1));
+          })
+        )
+        .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
+        .pipe(rename(`blog${index === 0 ? "" : "-" + (index + 1)}.html`))
         .pipe(gulp.dest("dist"))
         .on("end", cb);
     };
@@ -165,7 +196,11 @@ gulp.task("js", function () {
 gulp.task("watch", function () {
   watch(
     ["src/**/*.js", "src/**/*.scss", "src/**/*.html"],
-    gulp.series(gulp.parallel("sass", "js"), gulp.parallel("html", "keywords"))
+    gulp.series(
+      gulp.parallel("sass", "js"),
+      gulp.parallel("html", "keywords"),
+      "blog-pagination"
+    )
   );
   watch(["src/images/*"], gulp.series("images", "webp-images"));
 });
@@ -180,6 +215,7 @@ gulp.task(
     "js",
     "html",
     "robots",
-    "keywords"
+    "keywords",
+    "blog-pagination"
   )
 );

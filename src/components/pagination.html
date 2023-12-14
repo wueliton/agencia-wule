@@ -1,0 +1,18 @@
+@@if(indice >= minPage && indice <= maxPage) {
+    @@if(indice == 1) {
+        @@if(page === indice) {
+            <a href="blog" class="active">@@indice</a>
+        }
+        @@if(page !== indice) {
+            <a href="blog">@@indice</a>
+        }
+    }
+    @@if(indice != 1) {
+        @@if(page === indice) {
+            <a href="blog-@@indice" class="active">@@indice</a>
+        }
+        @@if(page !== indice) {
+            <a href="blog-@@indice">@@indice</a>
+        }
+    }
+}

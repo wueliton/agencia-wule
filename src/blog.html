@@ -6,14 +6,38 @@
 })
 <body>
     @@include('./includes/header.html')
+    
     <main class="py-5">
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-auto">
                     <h1>Blog</h1>
                     <div class="posts">
-                        @@loop('./components/blog-card.html', "./includes/keywords.json")
+                        @@for (var i = 0; i < keywords.length; i++) {
+                            @@include('./components/blog-card.html', {
+                                "title": "`+keywords[i].title+`",
+                                "description": "`+keywords[i].description+`",
+                                "date": "`+keywords[i].date+`"
+                            })
+                        }
                     </div>
+                    <div class="pagination pt-4">
+                        @@if(prevPage) {
+                            <a href="@@prevPage">&lt;</a>
+                        }
+                        @@for(var i = 1; i < pagesLength; i++) {
+                            @@include('./components/pagination.html', {
+                                "page": "@@page",
+                                "indice": "`+i+`",
+                                "minPage": @@minPage,
+                                "maxPage": @@maxPage
+                            })
+                        }
+                        @@if(nextPage) {
+                            <a href="@@nextPage">&gt;</a>
+                        }
+                    </div>
+                    
                 </div>
             </div>
         </div>
