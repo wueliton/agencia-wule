@@ -51,7 +51,7 @@ const setupForm = () => {
                 [chave]: valor
             }
         });
-        dataLayer.push({'event': 'contact-form-send', 'data': JSON.stringify(serializedForm)});
+        dataLayer.push({'event': 'contact_form_send', 'data': JSON.stringify(serializedForm)});
         const successMessage = document.getElementById('success');
         const mailSuccess = document.getElementById('email-sender');
         e.target.style.display = 'none';
