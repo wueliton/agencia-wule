@@ -11,25 +11,44 @@
     <meta name="robots" content="index, follow" />
     <meta name="author" content="@@empresa" />
     <meta name="image" content="@@images/card.jpg" />
-    <meta name="cannonical" content="@@siteUrl@@cannonical" />
     <meta property="og:title" content="@@title" />
     <meta property="og:image" content="@@images/card.jpg" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="@@siteUrl@@cannonical" />
+    <meta property="og:url" content="@@siteUrl@@canonical" />
     <meta property="og:description" content="@@description" />
+
+    <link rel="canonical" href="@@siteUrl@@canonical" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="geo.region" content="São Paulo, SP" />
+
+    <meta name="robots" content="index, follow" />
+
+    <meta name="language" content="pt-br" />
+    <meta name="copyright" content="@@slogan" />
+    <meta name="distribution" content="global" />
+    <meta name="audience" content="all" />
+    <meta name="url" content="@@siteUrl@@canonical" />
+    <meta name="classification" content="@@slogan" />
+    <meta name="category" content="@@slogan" />
+    <meta name="Page-Topic" content="@@slogan - @@empresa" />
+    <meta name="rating" content="general" />
+    <meta name="fone" content="@@phone" />
+    <meta name="city" content="São Paulo, SP" />
+    <meta name="country" content="Brasil" />
+    <meta property="publisher" content="@@empresa" />
+
+    <meta name="geo.region" content="BR-SP" />
+    <meta name="geo.position" content="-23.4714968;-46.5995291" />
+    <meta name="ICBM" content="-23.4714968, -46.5995291" />
 
     <title>@@title | @@empresa</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');" href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;700&display=swap" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
     <style>
         @@include('../../dist/css/main.css')
     </style>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WWKQJDK');</script>
-    <!-- End Google Tag Manager -->
 </head>

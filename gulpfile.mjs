@@ -133,7 +133,9 @@ gulp.task("keywords", function (done) {
               ...geral,
               ...keyword,
               minutes: getReadTime(keyword.keywordcontent),
-              keywords: shuffledKeywords.slice(0, 6)
+              keywords: shuffledKeywords.slice(0, 6),
+              canonical: getFileLink(keyword.title),
+              breadcrumb: 'blog'
             },
           })
         )
@@ -173,6 +175,7 @@ gulp.task("blog-pagination", function (done) {
               pagesLength: pagesLength.length + 1,
               minPage: index - 2,
               maxPage: index + 4,
+              actualPage: index > 0 ? `blog-${index + 1}` : 'blog',
               prevPage: index > 0 ? index === 1 ? 'blog' : `blog-${index}` : null,
               nextPage: (index + 1) < (pagesLength.length) ? `blog-${index + 2}` : null
             },

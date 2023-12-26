@@ -28,11 +28,13 @@
         "name": "Página Inicial",
         "item": "@@siteUrl"
       },
+      @@if(context.breadcrumb == 'blog') {
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Serviços",
-        "item": "@@siteUrlservicos"
+        "name": "Blog",
+        "item": "@@siteUrlblog"
+      }
       }
     ]
   }
